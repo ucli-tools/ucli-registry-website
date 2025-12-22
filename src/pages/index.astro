@@ -1,0 +1,495 @@
+---
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>UCLI Tools Registry</title>
+    <meta name="theme-color" content="#ea580c" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #ea580c 0%, #dc2626 25%, #7c2d12 50%, #9a3412 75%, #c2410c 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #fed7aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(251, 191, 36, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tool-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .tool-status {
+            background: #22c55e;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tool-description {
+            color: #fed7aa;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-tag {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        .tool-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: #ea580c;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .ecosystem {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .ecosystem h3 {
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .ecosystem p {
+            text-align: center;
+            color: #fed7aa;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .ecosystem-item {
+            padding: 1rem 1.25rem;
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid rgba(251, 191, 36, 0.5);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            min-height: 4.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ecosystem-item:hover {
+            border-color: #ea580c;
+        }
+
+        .ecosystem-item.current {
+            border-color: #ea580c;
+            background: rgba(234, 88, 12, 0.1);
+        }
+
+        .current-badge {
+            position: absolute;
+            top: -0.4rem;
+            right: -0.4rem;
+            background: #ea580c;
+            color: white;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        .ecosystem-icon {
+            width: 1rem;
+            height: 1rem;
+            color: #ea580c;
+            flex-shrink: 0;
+        }
+
+        .ecosystem-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+            overflow: hidden;
+        }
+
+        .ecosystem-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #ea580c;
+        }
+
+        .ecosystem-url {
+            font-size: 0.75rem;
+            color: #fed7aa;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>UCLI Tools Registry</h1>
+            <p class="subtitle">Discover and install professional CLI tools for developers</p>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Official Tools</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Community Tools</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">v1.0.0</div>
+                    <div class="stat-label">Registry Version</div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="tools-grid">
+                <!-- ucli -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="tool-name">ucli</div>
+                        <div class="tool-status">Production</div>
+                    </div>
+                    <p class="tool-description">Universal Command Line Interface Tool - Tool manager for the UCLI ecosystem</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">cli</span>
+                        <span class="tool-tag">tool-manager</span>
+                        <span class="tool-tag">installer</span>
+                        <span class="tool-tag">bash</span>
+                    </div>
+                    <div class="tool-actions">
+                        <a href="https://docs.ucli.tools/tools/ucli" class="btn btn-primary">View Docs</a>
+                        <a href="https://install.ucli.tools" class="btn btn-secondary">Install</a>
+                    </div>
+                </div>
+
+                <!-- gits -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="tool-name">gits</div>
+                        <div class="tool-status">Production</div>
+                    </div>
+                    <p class="tool-description">Git workflow automation supporting Forgejo, Gitea, and GitHub</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">git</span>
+                        <span class="tool-tag">workflow</span>
+                        <span class="tool-tag">automation</span>
+                        <span class="tool-tag">forgejo</span>
+                        <span class="tool-tag">gitea</span>
+                        <span class="tool-tag">github</span>
+                    </div>
+                    <div class="tool-actions">
+                        <a href="https://docs.ucli.tools/tools/gits" class="btn btn-primary">View Docs</a>
+                        <a href="https://install.ucli.tools" class="btn btn-secondary">Install</a>
+                    </div>
+                </div>
+
+                <!-- mdtexpdf -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <div class="tool-name">mdtexpdf</div>
+                        <div class="tool-status">Production</div>
+                    </div>
+                    <p class="tool-description">Convert Markdown documents to PDF with LaTeX quality</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">markdown</span>
+                        <span class="tool-tag">pdf</span>
+                        <span class="tool-tag">latex</span>
+                        <span class="tool-tag">pandoc</span>
+                        <span class="tool-tag">documentation</span>
+                    </div>
+                    <div class="tool-actions">
+                        <a href="https://docs.ucli.tools/tools/mdtexpdf" class="btn btn-primary">View Docs</a>
+                        <a href="https://install.ucli.tools" class="btn btn-secondary">Install</a>
+                    </div>
+                </div>
+
+                <!-- mdaudiobook -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                            </svg>
+                        </div>
+                        <div class="tool-name">mdaudiobook</div>
+                        <div class="tool-status">Production</div>
+                    </div>
+                    <p class="tool-description">Convert Markdown content to audiobooks and podcasts</p>
+                    <div class="tool-tags">
+                        <span class="tool-tag">markdown</span>
+                        <span class="tool-tag">audiobook</span>
+                        <span class="tool-tag">tts</span>
+                        <span class="tool-tag">audio</span>
+                        <span class="tool-tag">podcast</span>
+                    </div>
+                    <div class="tool-actions">
+                        <a href="https://docs.ucli.tools/tools/mdaudiobook" class="btn btn-primary">View Docs</a>
+                        <a href="https://install.ucli.tools" class="btn btn-secondary">Install</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Ecosystem Footer -->
+        <div class="ecosystem">
+            <h3>UCLI Tools Ecosystem</h3>
+            <p>Professional CLI tools for developers</p>
+
+            <div class="ecosystem-grid">
+                <a href="https://ucli.tools" class="ecosystem-item">
+                    <div class="ecosystem-content">
+                        <svg class="ecosystem-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <span class="ecosystem-title">UCLI Tools</span>
+                    </div>
+                    <p class="ecosystem-url">ucli.tools</p>
+                </a>
+
+                <a href="https://install.ucli.tools" class="ecosystem-item">
+                    <div class="ecosystem-content">
+                        <svg class="ecosystem-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        <span class="ecosystem-title">Install</span>
+                    </div>
+                    <p class="ecosystem-url">install.ucli.tools</p>
+                </a>
+
+                <div class="ecosystem-item current">
+                    <div class="current-badge">You are here</div>
+                    <div class="ecosystem-content">
+                        <svg class="ecosystem-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                        <span class="ecosystem-title">Registry</span>
+                    </div>
+                    <p class="ecosystem-url">registry.ucli.tools</p>
+                </div>
+
+                <a href="https://docs.ucli.tools" class="ecosystem-item">
+                    <div class="ecosystem-content">
+                        <svg class="ecosystem-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                        <span class="ecosystem-title">Documentation</span>
+                    </div>
+                    <p class="ecosystem-url">docs.ucli.tools</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
