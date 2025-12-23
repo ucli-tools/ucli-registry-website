@@ -9,441 +9,228 @@
     <meta name="generator" content={Astro.generator} />
     <title>UCLI Tools Registry</title>
     <meta name="theme-color" content="#ea580c" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: linear-gradient(135deg, #ea580c 0%, #dc2626 25%, #7c2d12 50%, #9a3412 75%, #c2410c 100%);
-            color: #fff;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .logo {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #fff, #fed7aa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #fbbf24;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .tool-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .tool-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .tool-icon {
-            width: 3rem;
-            height: 3rem;
-            background: rgba(251, 191, 36, 0.2);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tool-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .tool-status {
-            background: #22c55e;
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .tool-description {
-            color: #fed7aa;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .tool-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tool-tag {
-            background: rgba(251, 191, 36, 0.2);
-            color: #fbbf24;
-            padding: 0.25rem 0.5rem;
-            border-radius: 5px;
-            font-size: 0.8rem;
-        }
-
-        .tool-actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary {
-            background: #ea580c;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #dc2626;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .ecosystem {
-            margin-top: 4rem;
-            padding-top: 3rem;
-            border-top: 1px solid rgba(251, 191, 36, 0.3);
-        }
-
-        .ecosystem h3 {
-            text-align: center;
-            margin-bottom: 0.5rem;
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .ecosystem p {
-            text-align: center;
-            color: #fed7aa;
-            margin-bottom: 2rem;
-            font-size: 0.875rem;
-        }
-
-        .ecosystem-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .ecosystem-item {
-            padding: 1rem 1.25rem;
-            background: rgba(17, 24, 39, 0.5);
-            border: 1px solid rgba(251, 191, 36, 0.5);
-            border-radius: 0.5rem;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s;
-            min-height: 4.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .ecosystem-item:hover {
-            border-color: #ea580c;
-        }
-
-        .ecosystem-item.current {
-            border-color: #ea580c;
-            background: rgba(234, 88, 12, 0.1);
-        }
-
-        .current-badge {
-            position: absolute;
-            top: -0.4rem;
-            right: -0.4rem;
-            background: #ea580c;
-            color: white;
-            padding: 0.125rem 0.375rem;
-            border-radius: 0.25rem;
-            font-size: 0.65rem;
-            font-weight: 600;
-            white-space: nowrap;
-            z-index: 1;
-        }
-
-        .ecosystem-icon {
-            width: 1rem;
-            height: 1rem;
-            color: #ea580c;
-            flex-shrink: 0;
-        }
-
-        .ecosystem-content {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.25rem;
-            overflow: hidden;
-        }
-
-        .ecosystem-title {
-            font-weight: 600;
-            font-size: 0.875rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: #ea580c;
-        }
-
-        .ecosystem-url {
-            font-size: 0.75rem;
-            color: #fed7aa;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats {
-                gap: 1rem;
-            }
-        }
-    </style>
 </head>
-<body>
-    <div class="container">
-        <header class="header">
-            <div class="logo">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-                    <path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            <h1>UCLI Tools Registry</h1>
-            <p class="subtitle">Discover and install professional CLI tools for developers</p>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden border-b border-gray-800">
+        <!-- Background gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-red-900/20 to-yellow-900/20"></div>
 
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Official Tools</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">0</div>
-                    <div class="stat-label">Community Tools</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">v1.0.0</div>
-                    <div class="stat-label">Registry Version</div>
-                </div>
-            </div>
-        </header>
-
-        <main>
-            <!-- Search & Filter -->
-            <div class="mb-8">
-                <div class="flex flex-col md:flex-row gap-4">
-                    <!-- Search -->
-                    <div class="flex-1 relative">
-                        <input
-                            type="text"
-                            id="search"
-                            placeholder="Search tools..."
-                            class="w-full bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition"
-                        />
-                        <svg class="w-5 h-5 text-gray-500 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <!-- Navigation -->
+        <nav class="relative border-b border-gray-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-6">
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
+                        <div>
+                            <div class="text-xl font-bold bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
+                                UCLI Registry
+                            </div>
+                            <div class="text-xs text-gray-500">Install tools by name</div>
+                        </div>
                     </div>
-
-                    <!-- Filter by Status -->
-                    <select
-                        id="status-filter"
-                        class="bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition"
-                    >
-                        <option value="">All Status</option>
-                        <option value="production">Production</option>
-                        <option value="beta">Beta</option>
-                        <option value="development">Development</option>
-                    </select>
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="https://docs.ucli.tools" class="text-gray-300 hover:text-white transition">Documentation</a>
+                        <a href="https://github.com/ucli-tools/ucli-registry" class="text-gray-300 hover:text-white transition">GitHub</a>
+                        <a href="https://ucli.tools" class="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg transition font-medium">Get Started</a>
+                    </div>
                 </div>
             </div>
+        </nav>
 
-            <!-- Loading State -->
-            <div id="loading" class="text-center py-12">
-                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400"></div>
-                <p class="mt-4 text-gray-400">Loading tools...</p>
+        <!-- Hero Content -->
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <div class="inline-block mb-6 px-4 py-2 bg-orange-600/20 border border-orange-500/50 rounded-full">
+                <span class="text-orange-400 font-semibold">Official Tool Registry</span>
             </div>
 
-            <!-- Error State -->
-            <div id="error" class="hidden text-center py-12">
-                <div class="text-red-400 text-xl mb-2">❌ Failed to load tools</div>
-                <p class="text-gray-400">Check console for details</p>
-            </div>
+            <h1 class="text-5xl md:text-6xl font-black tracking-tight mb-6">
+                <span class="text-white">
+                    Install Tools by Name.
+                </span>
+                <br />
+                <span class="bg-gradient-to-r from-orange-400 via-yellow-400 to-red-400 bg-clip-text text-transparent">
+                    Like Docker. Simple.
+                </span>
+            </h1>
 
-            <!-- Tools Grid -->
-            <div id="tools-grid" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-                <!-- Tools will be injected here -->
-            </div>
+            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                Browse official CLI tools and install them with a single command. Professional utilities for developers.
+            </p>
 
-            <!-- No Results -->
-            <div id="no-results" class="hidden text-center py-12">
-                <div class="text-gray-400 text-xl mb-2">🔍 No tools found</div>
-                <p class="text-gray-500">Try adjusting your search or filters</p>
-            </div>
-        </main>
+            <!-- Code Example -->
+            <div class="max-w-xl mx-auto mb-12">
+                <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 text-left">
+                    <pre class="text-gray-300 font-mono text-sm"><code><span class="text-gray-500"># Browse tools on registry.ucli.tools</span>
+<span class="text-gray-500"># Then install with ucli</span>
+<span class="text-orange-400">ucli</span> <span class="text-yellow-400">build</span> gits
 
-        <!-- Ecosystem Footer -->
-        <div class="ecosystem">
-            <h3>UCLI Tools Ecosystem</h3>
-            <p>Professional CLI tools for developers</p>
-
-            <div class="ecosystem-grid">
-                <a href="https://ucli.tools" class="ecosystem-item">
-                    <div class="ecosystem-content">
-                        <svg class="ecosystem-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
-                        <span class="ecosystem-title">UCLI Tools</span>
-                    </div>
-                    <p class="ecosystem-url">ucli.tools</p>
-                </a>
-
-                <a href="https://install.ucli.tools" class="ecosystem-item">
-                    <div class="ecosystem-content">
-                        <svg class="ecosystem-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        <span class="ecosystem-title">Install</span>
-                    </div>
-                    <p class="ecosystem-url">install.ucli.tools</p>
-                </a>
-
-                <div class="ecosystem-item current">
-                    <div class="current-badge">You are here</div>
-                    <div class="ecosystem-content">
-                        <svg class="ecosystem-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                        </svg>
-                        <span class="ecosystem-title">Registry</span>
-                    </div>
-                    <p class="ecosystem-url">registry.ucli.tools</p>
+<span class="text-gray-500"># That's it! 🎉</span></code></pre>
                 </div>
+            </div>
 
-                <a href="https://docs.ucli.tools" class="ecosystem-item">
-                    <div class="ecosystem-content">
-                        <svg class="ecosystem-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                        </svg>
-                        <span class="ecosystem-title">Documentation</span>
-                    </div>
-                    <p class="ecosystem-url">docs.ucli.tools</p>
-                </a>
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+                <div class="bg-gray-900/30 border border-gray-800 rounded-lg p-4">
+                    <div class="text-3xl font-bold text-orange-400" id="total-apps">-</div>
+                    <div class="text-sm text-gray-400">Total Tools</div>
+                </div>
+                <div class="bg-gray-900/30 border border-gray-800 rounded-lg p-4">
+                    <div class="text-3xl font-bold text-green-400" id="official-apps">-</div>
+                    <div class="text-sm text-gray-400">Official</div>
+                </div>
+                <div class="bg-gray-900/30 border border-gray-800 rounded-lg p-4">
+                    <div class="text-3xl font-bold text-purple-400" id="community-apps">-</div>
+                    <div class="text-sm text-gray-400">Community</div>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Search & Filter -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col md:flex-row gap-4 mb-8">
+            <!-- Search -->
+            <div class="flex-1 relative">
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Search tools..."
+                    class="w-full bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition"
+                />
+                <svg class="w-5 h-5 text-gray-500 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+
+            <!-- Filter by Status -->
+            <select
+                id="status-filter"
+                class="bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500 transition"
+            >
+                <option value="">All Status</option>
+                <option value="production">Production</option>
+                <option value="beta">Beta</option>
+                <option value="development">Development</option>
+            </select>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+            <p class="mt-4 text-gray-400">Loading tools...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error" class="hidden text-center py-12">
+            <div class="text-red-400 text-xl mb-2">❌ Failed to load tools</div>
+            <p class="text-gray-400">Check console for details</p>
+        </div>
+
+        <!-- Apps Grid -->
+        <div id="apps-grid" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+            <!-- Apps will be injected here -->
+        </div>
+
+        <!-- No Results -->
+        <div id="no-results" class="hidden text-center py-12">
+            <div class="text-gray-400 text-xl mb-2">🔍 No tools found</div>
+            <p class="text-gray-500">Try adjusting your search or filters</p>
+        </div>
+    </div>
+
+    <!-- Submit Tool CTA -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="bg-gradient-to-r from-orange-900/30 to-red-900/30 border border-orange-500/50 rounded-2xl p-8 md:p-12 text-center">
+            <h2 class="text-3xl font-bold mb-4">Have a useful CLI tool?</h2>
+            <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                Submit your tool to the UCLI Registry and make it available to the community.
+            </p>
+            <a
+                href="https://docs.ucli.tools/community/contributing"
+                class="inline-block px-8 py-4 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold text-lg transition transform hover:scale-105"
+            >
+                Submit Your Tool →
+            </a>
+        </div>
+    </div>
+
+    <!-- Ecosystem Links -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-800">
+        <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold mb-2">UCLI Tools Ecosystem</h3>
+            <p class="text-gray-400">Integrated tools and resources</p>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-6">
+            <!-- Main Site -->
+            <a href="https://ucli.tools" class="group p-6 bg-gray-900/50 border border-gray-800 hover:border-orange-500/50 rounded-xl transition">
+                <div class="flex items-center gap-3 mb-2">
+                    <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <h4 class="font-bold group-hover:text-orange-400 transition">UCLI Tools</h4>
+                </div>
+                <p class="text-sm text-gray-500">ucli.tools</p>
+                <p class="text-xs text-gray-600 mt-2">Main platform website</p>
+            </a>
+
+            <!-- Install -->
+            <a href="https://install.ucli.tools" class="group p-6 bg-gray-900/50 border border-gray-800 hover:border-orange-500/50 rounded-xl transition">
+                <div class="flex items-center gap-3 mb-2">
+                    <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <h4 class="font-bold group-hover:text-orange-400 transition">Install</h4>
+                </div>
+                <p class="text-sm text-gray-500">install.ucli.tools</p>
+                <p class="text-xs text-gray-600 mt-2">One-line installer</p>
+            </a>
+
+            <!-- Registry (Current) -->
+            <div class="p-6 bg-gray-900/50 border border-green-500/50 rounded-xl relative">
+                <div class="absolute -top-2 -right-2">
+                    <span class="px-2 py-1 bg-green-600 text-xs font-semibold rounded">You are here</span>
+                </div>
+                <div class="flex items-center gap-3 mb-2">
+                    <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    <h4 class="font-bold text-green-400">Registry</h4>
+                </div>
+                <p class="text-sm text-gray-500">registry.ucli.tools</p>
+                <p class="text-xs text-gray-600 mt-2">Browse official tools</p>
+            </div>
+
+            <!-- Docs -->
+            <a href="https://docs.ucli.tools" class="group p-6 bg-gray-900/50 border border-gray-800 hover:border-orange-500/50 rounded-xl transition">
+                <div class="flex items-center gap-3 mb-2">
+                    <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <h4 class="font-bold group-hover:text-orange-400 transition">Documentation</h4>
+                </div>
+                <p class="text-sm text-gray-500">docs.ucli.tools</p>
+                <p class="text-xs text-gray-600 mt-2">Guides & references</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            <p>UCLI Tools Registry • Apache 2.0 License • Copyright 2025 UCLI Tools</p>
+            <p class="mt-2">
+                <a href="https://github.com/ucli-tools/ucli-registry" class="hover:text-gray-300 transition">GitHub</a> •
+                <a href="https://github.com/ucli-tools" class="hover:text-gray-300 transition ml-4">Organization</a>
+            </p>
+        </div>
+    </footer>
+
     <script>
-        // Fetch tools from registry API
+        // Fetch tools from UCLI Registry
         const REGISTRY_URL = '/api/apps.json';
         let allTools = [];
 
@@ -460,25 +247,47 @@
 
         function renderTool(tool) {
             const statusColor = tool.status === 'production' ? 'green' : tool.status === 'beta' ? 'yellow' : 'gray';
+            const typeColor = 'orange';
 
             return `
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
+                <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-6 hover:border-${typeColor}-500/50 transition group flex flex-col h-full">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <h3 class="text-xl font-bold text-white group-hover:text-${typeColor}-400 transition">${tool.name}</h3>
+                                <span class="text-xs px-2 py-1 bg-${typeColor}-600 rounded text-white font-semibold">Official</span>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-3">${tool.description || 'No description available'}</p>
                         </div>
-                        <div class="tool-name">${tool.name}</div>
-                        <div class="tool-status">${tool.status}</div>
                     </div>
-                    <p class="tool-description">${tool.description || 'No description available'}</p>
-                    <div class="tool-tags">
-                        ${tool.tags?.map(tag => `<span class="tool-tag">${tag}</span>`).join('') || ''}
+
+                    <div class="flex flex-wrap gap-2 mb-4 min-h-[32px]">
+                        <span class="text-xs px-2 py-1 bg-${statusColor}-600/20 text-${statusColor}-400 rounded border border-${statusColor}-500/30">
+                            ${tool.status}
+                        </span>
+                        ${tool.tags?.slice(0, 3).map(tag =>
+                            `<span class="text-xs px-2 py-1 bg-gray-800 text-gray-500 rounded">${tag}</span>`
+                        ).join('') || ''}
+                        ${tool.tags?.length > 3 ? `<span class="text-xs px-2 py-1 bg-gray-800 text-gray-400 rounded cursor-help" title="${tool.tags.slice(3).join(', ')}">+${tool.tags.length - 3} more</span>` : ''}
                     </div>
-                    <div class="tool-actions">
-                        <a href="https://docs.ucli.tools/tools/${tool.name}" class="btn btn-primary">View Docs</a>
-                        <button onclick="copyInstallCommand('${tool.name}')" class="btn btn-secondary">Copy Install</button>
+
+                    <div class="flex gap-2 mt-auto">
+                        <button
+                            onclick="copyInstallCommand('${tool.name}')"
+                            class="flex-1 px-4 py-2 bg-${typeColor}-600 hover:bg-${typeColor}-700 rounded-lg font-medium transition text-sm"
+                        >
+                            Copy Install Command
+                        </button>
+                        <a
+                            href="https://${tool.repo}"
+                            target="_blank"
+                            class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition text-sm flex items-center gap-2"
+                        >
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.840 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            View
+                        </a>
                     </div>
                 </div>
             `;
@@ -499,7 +308,7 @@
                 return matchesSearch && matchesStatus;
             });
 
-            const grid = document.getElementById('tools-grid');
+            const grid = document.getElementById('apps-grid');
             const noResults = document.getElementById('no-results');
 
             if (filtered.length === 0) {
@@ -517,7 +326,7 @@
             navigator.clipboard.writeText(command);
 
             // Show toast notification
-            showToast(`Copied: ${command}`);
+            showToast(`Copied: ucli build ${toolName}`);
         };
 
         function showToast(message) {
@@ -542,20 +351,20 @@
         async function init() {
             const loading = document.getElementById('loading');
             const error = document.getElementById('error');
-            const grid = document.getElementById('tools-grid');
+            const grid = document.getElementById('apps-grid');
 
             try {
                 allTools = await fetchTools();
 
                 // Update stats
-                const official = allTools.filter(t => t.type === 'official').length;
-                const community = allTools.filter(t => t.type === 'community').length;
+                const official = allTools.filter(a => a.type === 'official').length;
+                const community = allTools.filter(a => a.type === 'community').length;
 
-                document.querySelector('.stat-number').textContent = allTools.length;
-                document.querySelectorAll('.stat-number')[1].textContent = official;
-                document.querySelectorAll('.stat-number')[2].textContent = community;
+                document.getElementById('total-apps').textContent = allTools.length;
+                document.getElementById('official-apps').textContent = official;
+                document.getElementById('community-apps').textContent = community;
 
-                // Render tools
+                // Render apps
                 loading.classList.add('hidden');
                 filterTools();
 
@@ -573,5 +382,4 @@
         // Run on load
         init();
     </script>
-</body>
 </html>
