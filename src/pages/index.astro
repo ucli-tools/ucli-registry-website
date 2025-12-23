@@ -339,106 +339,56 @@
         </header>
 
         <main>
-            <div class="tools-grid">
-                <!-- ucli -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <div class="tool-name">ucli</div>
-                        <div class="tool-status">Production</div>
+            <!-- Search & Filter -->
+            <div class="mb-8">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- Search -->
+                    <div class="flex-1 relative">
+                        <input
+                            type="text"
+                            id="search"
+                            placeholder="Search tools..."
+                            class="w-full bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 pl-12 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition"
+                        />
+                        <svg class="w-5 h-5 text-gray-500 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
                     </div>
-                    <p class="tool-description">Universal Command Line Interface Tool - Tool manager for the UCLI ecosystem</p>
-                    <div class="tool-tags">
-                        <span class="tool-tag">cli</span>
-                        <span class="tool-tag">tool-manager</span>
-                        <span class="tool-tag">installer</span>
-                        <span class="tool-tag">bash</span>
-                    </div>
-                    <div class="tool-actions">
-                        <a href="https://docs.ucli.tools/tools/ucli" class="btn btn-primary">View Docs</a>
-                        <a href="https://install.ucli.tools" class="btn btn-secondary">Install</a>
-                    </div>
-                </div>
 
-                <!-- gits -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"/>
-                            </svg>
-                        </div>
-                        <div class="tool-name">gits</div>
-                        <div class="tool-status">Production</div>
-                    </div>
-                    <p class="tool-description">Git workflow automation supporting Forgejo, Gitea, and GitHub</p>
-                    <div class="tool-tags">
-                        <span class="tool-tag">git</span>
-                        <span class="tool-tag">workflow</span>
-                        <span class="tool-tag">automation</span>
-                        <span class="tool-tag">forgejo</span>
-                        <span class="tool-tag">gitea</span>
-                        <span class="tool-tag">github</span>
-                    </div>
-                    <div class="tool-actions">
-                        <a href="https://docs.ucli.tools/tools/gits" class="btn btn-primary">View Docs</a>
-                        <a href="https://install.ucli.tools" class="btn btn-secondary">Install</a>
-                    </div>
+                    <!-- Filter by Status -->
+                    <select
+                        id="status-filter"
+                        class="bg-gray-900 border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-yellow-400 transition"
+                    >
+                        <option value="">All Status</option>
+                        <option value="production">Production</option>
+                        <option value="beta">Beta</option>
+                        <option value="development">Development</option>
+                    </select>
                 </div>
+            </div>
 
-                <!-- mdtexpdf -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                        </div>
-                        <div class="tool-name">mdtexpdf</div>
-                        <div class="tool-status">Production</div>
-                    </div>
-                    <p class="tool-description">Convert Markdown documents to PDF with LaTeX quality</p>
-                    <div class="tool-tags">
-                        <span class="tool-tag">markdown</span>
-                        <span class="tool-tag">pdf</span>
-                        <span class="tool-tag">latex</span>
-                        <span class="tool-tag">pandoc</span>
-                        <span class="tool-tag">documentation</span>
-                    </div>
-                    <div class="tool-actions">
-                        <a href="https://docs.ucli.tools/tools/mdtexpdf" class="btn btn-primary">View Docs</a>
-                        <a href="https://install.ucli.tools" class="btn btn-secondary">Install</a>
-                    </div>
-                </div>
+            <!-- Loading State -->
+            <div id="loading" class="text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400"></div>
+                <p class="mt-4 text-gray-400">Loading tools...</p>
+            </div>
 
-                <!-- mdaudiobook -->
-                <div class="tool-card">
-                    <div class="tool-header">
-                        <div class="tool-icon">
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                            </svg>
-                        </div>
-                        <div class="tool-name">mdaudiobook</div>
-                        <div class="tool-status">Production</div>
-                    </div>
-                    <p class="tool-description">Convert Markdown content to audiobooks and podcasts</p>
-                    <div class="tool-tags">
-                        <span class="tool-tag">markdown</span>
-                        <span class="tool-tag">audiobook</span>
-                        <span class="tool-tag">tts</span>
-                        <span class="tool-tag">audio</span>
-                        <span class="tool-tag">podcast</span>
-                    </div>
-                    <div class="tool-actions">
-                        <a href="https://docs.ucli.tools/tools/mdaudiobook" class="btn btn-primary">View Docs</a>
-                        <a href="https://install.ucli.tools" class="btn btn-secondary">Install</a>
-                    </div>
-                </div>
+            <!-- Error State -->
+            <div id="error" class="hidden text-center py-12">
+                <div class="text-red-400 text-xl mb-2">❌ Failed to load tools</div>
+                <p class="text-gray-400">Check console for details</p>
+            </div>
+
+            <!-- Tools Grid -->
+            <div id="tools-grid" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+                <!-- Tools will be injected here -->
+            </div>
+
+            <!-- No Results -->
+            <div id="no-results" class="hidden text-center py-12">
+                <div class="text-gray-400 text-xl mb-2">🔍 No tools found</div>
+                <p class="text-gray-500">Try adjusting your search or filters</p>
             </div>
         </main>
 
@@ -491,5 +441,137 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Fetch tools from registry API
+        const REGISTRY_URL = '/api/apps.json';
+        let allTools = [];
+
+        async function fetchTools() {
+            try {
+                const response = await fetch(REGISTRY_URL);
+                const tools = await response.json();
+                return tools;
+            } catch (error) {
+                console.error('Failed to fetch tools:', error);
+                throw error;
+            }
+        }
+
+        function renderTool(tool) {
+            const statusColor = tool.status === 'production' ? 'green' : tool.status === 'beta' ? 'yellow' : 'gray';
+
+            return `
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="tool-name">${tool.name}</div>
+                        <div class="tool-status">${tool.status}</div>
+                    </div>
+                    <p class="tool-description">${tool.description || 'No description available'}</p>
+                    <div class="tool-tags">
+                        ${tool.tags?.map(tag => `<span class="tool-tag">${tag}</span>`).join('') || ''}
+                    </div>
+                    <div class="tool-actions">
+                        <a href="https://docs.ucli.tools/tools/${tool.name}" class="btn btn-primary">View Docs</a>
+                        <button onclick="copyInstallCommand('${tool.name}')" class="btn btn-secondary">Copy Install</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterTools() {
+            const searchQuery = document.getElementById('search').value.toLowerCase();
+            const statusFilter = document.getElementById('status-filter').value;
+
+            const filtered = allTools.filter(tool => {
+                const matchesSearch = !searchQuery ||
+                    tool.name.toLowerCase().includes(searchQuery) ||
+                    tool.description?.toLowerCase().includes(searchQuery) ||
+                    tool.tags?.some(tag => tag.toLowerCase().includes(searchQuery));
+
+                const matchesStatus = !statusFilter || tool.status === statusFilter;
+
+                return matchesSearch && matchesStatus;
+            });
+
+            const grid = document.getElementById('tools-grid');
+            const noResults = document.getElementById('no-results');
+
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+            } else {
+                grid.classList.remove('hidden');
+                noResults.classList.add('hidden');
+                grid.innerHTML = filtered.map(renderTool).join('');
+            }
+        }
+
+        window.copyInstallCommand = function(toolName) {
+            const command = `ucli build ${toolName}`;
+            navigator.clipboard.writeText(command);
+
+            // Show toast notification
+            showToast(`Copied: ${command}`);
+        };
+
+        function showToast(message) {
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-up';
+            toast.textContent = message;
+
+            // Add to page
+            document.body.appendChild(toast);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(1rem)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize
+        async function init() {
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const grid = document.getElementById('tools-grid');
+
+            try {
+                allTools = await fetchTools();
+
+                // Update stats
+                const official = allTools.filter(t => t.type === 'official').length;
+                const community = allTools.filter(t => t.type === 'community').length;
+
+                document.querySelector('.stat-number').textContent = allTools.length;
+                document.querySelectorAll('.stat-number')[1].textContent = official;
+                document.querySelectorAll('.stat-number')[2].textContent = community;
+
+                // Render tools
+                loading.classList.add('hidden');
+                filterTools();
+
+                // Setup event listeners
+                document.getElementById('search').addEventListener('input', filterTools);
+                document.getElementById('status-filter').addEventListener('change', filterTools);
+
+            } catch (err) {
+                loading.classList.add('hidden');
+                error.classList.remove('hidden');
+                console.error('Error loading tools:', err);
+            }
+        }
+
+        // Run on load
+        init();
+    </script>
 </body>
 </html>
