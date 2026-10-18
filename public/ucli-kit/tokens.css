@@ -1,0 +1,133 @@
+/* ucli-kit tokens.css, version 4 ("Plain"). Shared layer: fonts, colour, type, spacing, light and dark.
+   Plain CSS, framework-agnostic. Loaded by the three Astro sites and by the docs.
+   The colour blocks below are generated from one source (light and dark declaration sets) and are
+   identical in every selector that carries the same scheme. */
+
+/* ---- Fonts: self-hosted, unmodified upstream WOFF2 files, SIL OFL 1.1 (see fonts/ and README.md). ---- */
+@font-face { font-family: "Schibsted Grotesk"; font-style: normal; font-weight: 400 900; font-display: optional;
+  src: url("fonts/schibsted-grotesk-variable.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400; font-display: optional;
+  src: url("fonts/jetbrains-mono-400.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 500; font-display: optional;
+  src: url("fonts/jetbrains-mono-500.woff2") format("woff2"); }
+
+/* Metric-matched fallbacks, measured with fontTools: average advance of a-z, hhea ascent and descent;
+   ascent and descent overrides are the font's own divided by size-adjust. */
+@font-face { font-family: "Schibsted Fallback"; src: local("Arial"), local("Liberation Sans");
+  size-adjust: 107.5%; ascent-override: 90.8%; descent-override: 24.0%; line-gap-override: 0%; }
+@font-face { font-family: "JetBrains Fallback"; src: local("Courier New"), local("Liberation Mono");
+  size-adjust: 100%; ascent-override: 102.0%; descent-override: 30.0%; line-gap-override: 0%; }
+
+/* ---- Type, spacing, shape: the same in light and dark. ---- */
+:root {
+  --u-font-sans: "Schibsted Grotesk", "Schibsted Fallback", system-ui, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --u-font-mono: "JetBrains Mono", "JetBrains Fallback", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --u-fs-body: 16px;
+  --u-fs-lede: 19px;
+  --u-fs-h1-home: clamp(36px, 4.6vw, 60px);
+  --u-fs-h1-page: clamp(32px, 3.4vw, 44px);
+  --u-fs-h1-doc: 34px;
+  --u-fs-h2: 22px;
+  --u-fs-h2-doc: 20px;
+  --u-fs-ui: 15px;
+  --u-fs-small: 14px;
+  --u-fs-tiny: 13px;
+  --u-fs-code: 14px;
+
+  --u-radius: 6px;
+  --u-content-max: 1160px;
+  --u-gutter: 32px;
+}
+@media (max-width: 720px) {
+  :root { --u-fs-body: 15px; --u-fs-lede: 17px; --u-fs-h1-doc: 28px; --u-fs-code: 13px; --u-gutter: 16px; }
+}
+code, pre, kbd, samp { font-variant-ligatures: none; }   /* a command must look like the characters it contains */
+
+/* ---- Colour. Light is the default; dark follows the OS unless a choice is stored. ---- */
+:root,
+[data-md-color-scheme="default"] {
+  --u-paper: #ffffff;
+  --u-paper-2: #f5f6f7;
+  --u-rule: #e3e6e9;
+  --u-rule-strong: #8b929a;
+  --u-ink: #101214;
+  --u-ink-2: #555b63;
+  --u-slab-bg: #101214;
+  --u-slab-fg: #f3f4f5;
+  --u-slab-mute: #9aa1a9;
+  --u-btn-bg: #ffffff;
+  --u-btn-fg: #101214;
+  --u-ok: #0a7a3e;
+  color-scheme: light;
+}
+
+/* OS preference, unless the reader chose light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --u-paper: #0e1012;
+    --u-paper-2: #16191c;
+    --u-rule: #262a2f;
+    --u-rule-strong: #626970;
+    --u-ink: #eceef0;
+    --u-ink-2: #a3a9b0;
+    --u-slab-bg: #1d2125;
+    --u-slab-fg: #eceef0;
+    --u-slab-mute: #959ca4;
+    --u-btn-bg: #eceef0;
+    --u-btn-fg: #101214;
+    --u-ok: #4cc681;
+    color-scheme: dark;
+  }
+}
+
+/* A stored or toggled dark choice, and Material's slate scheme (set on <body>). */
+:root[data-theme="dark"],
+[data-md-color-scheme="slate"] {
+  --u-paper: #0e1012;
+  --u-paper-2: #16191c;
+  --u-rule: #262a2f;
+  --u-rule-strong: #626970;
+  --u-ink: #eceef0;
+  --u-ink-2: #a3a9b0;
+  --u-slab-bg: #1d2125;
+  --u-slab-fg: #eceef0;
+  --u-slab-mute: #959ca4;
+  --u-btn-bg: #eceef0;
+  --u-btn-fg: #101214;
+  --u-ok: #4cc681;
+  color-scheme: dark;
+}
+
+/* <html> follows Material's toggle too. Each :has() rule stands alone: a browser that does not
+   know :has() drops a whole selector list containing it, so it must never join the list above. */
+:root:has(> body[data-md-color-scheme="slate"]) {
+  --u-paper: #0e1012;
+  --u-paper-2: #16191c;
+  --u-rule: #262a2f;
+  --u-rule-strong: #626970;
+  --u-ink: #eceef0;
+  --u-ink-2: #a3a9b0;
+  --u-slab-bg: #1d2125;
+  --u-slab-fg: #eceef0;
+  --u-slab-mute: #959ca4;
+  --u-btn-bg: #eceef0;
+  --u-btn-fg: #101214;
+  --u-ok: #4cc681;
+  color-scheme: dark;
+}
+:root:has(> body[data-md-color-scheme="default"]) {
+  --u-paper: #ffffff;
+  --u-paper-2: #f5f6f7;
+  --u-rule: #e3e6e9;
+  --u-rule-strong: #8b929a;
+  --u-ink: #101214;
+  --u-ink-2: #555b63;
+  --u-slab-bg: #101214;
+  --u-slab-fg: #f3f4f5;
+  --u-slab-mute: #9aa1a9;
+  --u-btn-bg: #ffffff;
+  --u-btn-fg: #101214;
+  --u-ok: #0a7a3e;
+  color-scheme: light;
+}

@@ -1,0 +1,8 @@
+---
+import { SITES, GITHUB_URL } from '../data/sites';
+---
+
+<footer class="u-footer"><div class="u-wrap u-footer__in">
+  <nav class="u-footer__nav" aria-label="All ucli sites">{SITES.map((s) => <a href={s.href}>{s.footerLabel}</a>)}<a href={GITHUB_URL}>GitHub</a></nav>
+  <p>ucli is open source under the Apache 2.0 licence.</p>
+</div></footer>

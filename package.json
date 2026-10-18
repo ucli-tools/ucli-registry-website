@@ -1,6 +1,6 @@
 {
   "name": "ucli-registry-website",
-  "type": "package",
+  "type": "module",
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
@@ -8,14 +8,12 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "node --test tests/render-tool.test.mjs"
+    "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
     "astro": "^4.0.0",
     "@astrojs/tailwind": "^5.0.0",
-    "tailwindcss": "^3.0.0"
-  },
-  "devDependencies": {
-    "linkedom": "^0.18.0"
+    "tailwindcss": "^3.0.0",
+    "yaml": "2.9.1"
   }
 }

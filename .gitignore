@@ -95,7 +95,10 @@ dist
 
 # Gatsby files
 .cache/
-public
+/public/*
+!/public/ucli-kit/
+!/public/favicon.svg
+!/public/CNAME
 
 # Storybook build outputs
 .out

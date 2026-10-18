@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - main
+  schedule:
+    - cron: '30 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -26,16 +28,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check ucli-kit
+        continue-on-error: true   # a kit check never blocks a deploy
+        run: bash scripts/check-kit.sh
+
+      - name: Check tokens (every var(--u-...) in src/ exists in the kit)
+        run: bash scripts/check-tokens.sh
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci --no-audit --no-fund
+
+      - name: Test
+        run: npm test
 
       - name: Build website
         run: npm run build
+
+      - name: Check chrome (top bar and footer against ucli-kit/sites.txt)
+        continue-on-error: true   # a chrome check never blocks a deploy
+        run: bash scripts/check-chrome.sh
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -51,7 +67,21 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  keepalive:
+    # GitHub disables scheduled workflows after 60 days without repository activity. Re-enabling this
+    # workflow through the API on every scheduled run keeps the daily rebuild going.
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Re-enable this workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT repos/${{ github.repository }}/actions/workflows/deploy.yml/enable

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ucli kit specimen</title>
+<script>try{var t=localStorage.getItem('ucli-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="/ucli-kit/mark.svg">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1012">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/schibsted-grotesk-variable.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/jetbrains-mono-400.woff2">
+<link rel="stylesheet" href="/ucli-kit/tokens.css">
+<link rel="stylesheet" href="/ucli-kit/base.css">
+<link rel="stylesheet" href="/ucli-kit/prose.css">
+<style>
+/* specimen-only layout helpers (not part of the kit) */
+.sp-note { color: var(--u-ink-2); font-size: 14px; margin: 0 0 16px; }
+.sp-block { margin-bottom: 8px; }
+</style>
+<script src="/ucli-kit/copy.js" defer></script>
+<script src="/ucli-kit/theme.js" defer></script>
+</head>
+<body>
+<a class="u-skip" href="#main">Skip to content</a>
+
+<header class="u-header"><div class="u-wrap u-header__inner">
+  <a class="u-header__brand" href="https://ucli.tools/"><span class="u-wordmark">ucli</span><span class="u-header__site">kit</span></a>
+  <nav class="u-nav" aria-label="ucli sites">
+    <a href="https://ucli.tools/" aria-current="page">Home</a><a href="https://install.ucli.tools/">Install</a>
+    <a href="https://registry.ucli.tools/">Registry</a><a href="https://docs.ucli.tools/">Docs</a></nav>
+  <div class="u-header__tools"><a class="u-gh" href="https://github.com/ucli-tools/ucli">GitHub</a>
+    <button type="button" class="u-theme" aria-label="Switch colour theme" hidden><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg></button></div>
+</div></header>
+
+<main id="main">
+<div class="u-wrap">
+
+  <div class="u-hero">
+    <div>
+      <h1 style="font-size:var(--u-fs-h1-home);font-weight:700;letter-spacing:-.03em;line-height:1.04;max-width:17ch">Kit specimen, version 4</h1>
+      <p class="u-lede">Every component of the ucli sites on one page, in the Plain direction. Switch the colour theme with the button in the top bar.</p>
+      <div class="u-install">
+        <p class="u-install__label">Install</p>
+        <div class="u-cmd"><pre class="u-cmd__body" id="i1">curl -fsSL https://install.ucli.tools/install.sh | bash</pre>
+          <button type="button" class="u-copy" data-copy="i1" aria-label="Copy command" hidden>Copy</button></div>
+        <p class="u-install__note">The installer needs curl, git, make and bash. Read it first if you prefer.</p>
+      </div>
+      <p class="u-next"><a href="#code">Read the installer first</a><a href="#tools">See the tools</a></p>
+    </div>
+    <figure class="u-term">
+      <figcaption>A sample, as it would print</figcaption>
+      <div class="u-code"><div class="u-code__x" data-scroll-x tabindex="0" role="region" aria-label="Terminal sample"><pre><span class="u-o-prompt">$ </span>ucli update
+ucli: checking the registry
+ucli: nothing to do</pre></div></div>
+    </figure>
+  </div>
+
+  <section class="u-section" id="long">
+    <h2>The install bar with a long command</h2>
+    <p class="sp-note">The bar wraps and never scrolls sideways, even at 390px.</p>
+    <div class="u-cmd"><pre class="u-cmd__body" id="i2">curl -fsSL https://install.ucli.tools/install.sh | bash -s -- --prefix "$HOME/.local" --version 1.2.3 --no-modify-path --yes</pre>
+      <button type="button" class="u-copy" data-copy="i2" aria-label="Copy long command" hidden>Copy</button></div>
+  </section>
+
+  <section class="u-section" id="code">
+    <h2>Code block with Copy</h2>
+    <div class="u-code"><div class="u-code__x" data-scroll-x tabindex="0" role="region" aria-label="Read the installer first"><pre id="rv">curl -fsSL https://install.ucli.tools/install.sh -o install.sh
+less install.sh
+bash install.sh</pre></div>
+      <button type="button" class="u-copy u-copy--s" data-copy="rv" aria-label="Copy Read the installer first" hidden>Copy</button></div>
+    <div class="u-code"><div class="u-code__x" data-scroll-x tabindex="0" role="region" aria-label="A wide line"><pre>ucli build some-tool --prefix "$HOME/.local" --release --jobs 4 --verbose --keep-going --message-format short</pre></div></div>
+  </section>
+
+  <section class="u-section" id="tools">
+    <h2>Start with these tools</h2>
+    <ul class="u-tools">
+      <li><a class="u-toolname" href="#tools">gits</a><p>Work with many git repositories at once.</p><code>ucli build gits</code></li>
+      <li><a class="u-toolname" href="#tools">mdaudiobook</a><p>Turn markdown into an audiobook.</p><code>ucli build mdaudiobook</code></li>
+      <li><a class="u-toolname" href="#tools">docx2md</a><p>Convert Word documents to markdown.</p><code>ucli build docx2md</code></li>
+      <li><a class="u-toolname" href="#tools">ucli</a><p>The installer and updater for the rest.</p><code>ucli update</code></li>
+    </ul>
+    <p class="u-more">More tools are listed in the registry.</p>
+  </section>
+
+  <section class="u-section" id="steps">
+    <h2>How updates reach you</h2>
+    <ol class="u-steps">
+      <li><b>A new commit</b><span>A tool gets a new commit on main.</span></li>
+      <li><b>A pull request</b><span>The registry moves the tool's pin.</span></li>
+      <li><b>A merge</b><span>A maintainer merges it.</span></li>
+      <li><b>You update</b><span>You run ucli update.</span></li>
+    </ol>
+  </section>
+
+  <section class="u-section" id="registry">
+    <h2>Registry search, filters and table</h2>
+    <div class="u-search">
+      <label for="q">Search the registry</label>
+      <div class="u-search__f"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="q" type="search" placeholder="Type a tool name" autocomplete="off"></div>
+    </div>
+    <div class="u-bar">
+      <div class="u-filters">
+        <div class="u-fgroup" role="group" aria-labelledby="fk"><span class="u-fgroup__l" id="fk">Kind</span>
+          <div class="u-fgroup__b"><button type="button" aria-pressed="true">All <span class="u-count-n">3</span></button><button type="button" aria-pressed="false">Official <span class="u-count-n">2</span></button><button type="button" aria-pressed="false">Template <span class="u-count-n">1</span></button></div></div>
+      </div>
+      <p class="u-total" role="status"><b>3</b> of 3 shown</p>
+    </div>
+    <table class="u-table">
+      <caption class="u-visually-hidden">Tools and templates in the registry</caption>
+      <thead><tr><th scope="col">Tool</th><th scope="col">Pinned commit</th><th scope="col">Kind</th><th scope="col">Description</th></tr></thead>
+      <tbody>
+        <tr><td class="u-tn"><a href="#registry">gits</a></td><td class="u-tc"><code title="0123456789abcdef0123456789abcdef01234567">0123456</code></td><td class="u-tk">Official</td><td class="u-td">Work with many git repositories at once.</td></tr>
+        <tr><td class="u-tn"><a href="#registry">docx2md</a></td><td class="u-tc"><code title="89abcdef0123456789abcdef0123456789abcdef">89abcde</code></td><td class="u-tk">Official</td><td class="u-td">Convert Word documents to markdown.</td></tr>
+        <tr><td class="u-tn"><a href="#registry">starter</a></td><td class="u-tc u-tc-t"></td><td class="u-tk">Template</td><td class="u-td">A starting point for a new tool.</td></tr>
+        <tr class="u-empty" hidden><td colspan="4">No tool matches <b>that</b>.</td></tr>
+      </tbody>
+    </table>
+    <p class="sp-note" style="margin-top:20px">Status marks (rendered once the data has a tests field):</p>
+    <p><span class="u-status u-status--ok"><span class="u-status__dot"></span><span class="u-o-ok">Tested</span></span>&nbsp;&nbsp;&nbsp;<span class="u-status u-status--no"><span class="u-status__dot"></span>Not tested</span></p>
+  </section>
+
+  <section class="u-section" id="note">
+    <h2>Notes</h2>
+    <div class="u-note"><p class="u-note__title">Note</p><p>All kinds of note use the same ink border. The title word tells them apart.</p></div>
+    <div class="u-note"><p class="u-note__title">Warning</p><p>No colour, no icon.</p></div>
+  </section>
+
+  <section class="u-section" id="docs">
+    <h2>Docs layout</h2>
+    <p class="sp-note">Left navigation, the article, and "On this page". Below 760px the navigation moves behind the Menu button.</p>
+    <button type="button" class="u-menu" aria-expanded="false" aria-controls="spnav" hidden>Menu <span>Installation</span></button>
+    <div class="u-docs">
+      <nav class="u-dn" id="spnav" aria-label="Documentation">
+        <div class="u-dsearch"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <label class="u-visually-hidden" for="dq">Search the docs</label><input id="dq" type="search" placeholder="Search the docs"></div>
+        <div class="u-dn-g"><p class="u-dn-h">Getting started</p>
+          <ul><li><a href="#docs" aria-current="page">Installation</a></li><li><a href="#docs">First steps</a>
+            <ul><li><a href="#docs">Updating</a></li></ul></li></ul></div>
+        <div class="u-dn-g"><p class="u-dn-h">Reference</p>
+          <ul><li><a href="#docs">Commands</a></li><li><a href="#docs">Configuration</a></li></ul></div>
+      </nav>
+      <article class="u-doc">
+        <p class="u-crumb"><a href="#docs">Docs</a><span>/</span><a href="#docs">Getting started</a></p>
+        <h3 style="font-family:var(--u-font-mono);font-size:var(--u-fs-h1-doc);letter-spacing:-.02em;font-weight:500">Installation</h3>
+        <p class="u-doc-lede">Install ucli with one command, then build any tool from the registry.</p>
+        <h4 style="font-size:20px;margin:36px 0 10px">Before you start</h4>
+        <p>You need curl, git, make and bash. On Windows, use WSL.</p>
+        <table class="u-table u-dt"><tbody>
+          <tr><td>Linux</td><td>Supported.</td></tr><tr><td>macOS</td><td>Supported.</td></tr></tbody></table>
+        <div class="u-pn"><a href="#docs"><span>Previous</span>Overview</a><a href="#docs"><span>Next</span>First steps</a></div>
+      </article>
+      <nav class="u-toc" aria-label="On this page"><p class="u-toc__h">On this page</p>
+        <ul><li><a href="#docs" aria-current="location">Before you start</a></li><li><a href="#docs">Install</a></li></ul></nav>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer class="u-footer"><div class="u-wrap u-footer__in">
+  <nav class="u-footer__nav" aria-label="All ucli sites"><a href="https://ucli.tools/">ucli.tools</a><a href="https://install.ucli.tools/">install.ucli.tools</a>
+    <a href="https://registry.ucli.tools/">registry.ucli.tools</a><a href="https://docs.ucli.tools/">docs.ucli.tools</a><a href="https://github.com/ucli-tools/ucli">GitHub</a></nav>
+  <p>ucli is open source under the Apache 2.0 licence.</p></div></footer>
+
+<script>
+/* specimen only: reveal the Menu button and toggle the navigation. The real docs use their own script (7.4). */
+(function(){var b=document.querySelector('.u-menu'),n=document.getElementById('spnav');if(!b||!n)return;b.hidden=false;
+b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));
+n.style.display=o?'':'block';});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&b.getAttribute('aria-expanded')==='true'){b.click();b.focus();}});})();
+</script>
+</body>
+</html>
