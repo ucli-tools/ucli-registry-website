@@ -1,0 +1,25 @@
+metadata:
+  version: 1.0.0
+apps:
+  official:
+  - name: alpha
+    repo: github.com/ucli-tools/alpha
+    description: >
+      A folded description that runs
+      over two source lines.
+    version: 1111111111111111111111111111111111111111
+    tags:
+    - one
+    - two
+  - name: beta
+    repo: github.com/ucli-tools/beta
+    description: A multi-line plain scalar
+      that continues here
+    version: 2222222222222222222222222222222222222222
+    tags: []
+  community: []
+  templates:
+  - name: tpl
+    repo: github.com/ucli-tools/tpl
+    description: Start from this template
+    version: 3333333333333333333333333333333333333333

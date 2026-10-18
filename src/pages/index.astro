@@ -1,366 +1,102 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import { loadRegistry } from '../data/registry';
+import { toRows, counts } from '../lib/to-rows.js';
+
+const registry = await loadRegistry();
+const rows = [
+  ...toRows(registry.official, 'official'),
+  ...toRows(registry.community, 'community'),
+  ...toRows(registry.templates, 'template'),
+];
+const n = counts(registry);
+const kinds = [
+  { v: 'all', label: 'All', n: n.all },
+  { v: 'official', label: 'Official', n: n.official },
+  { v: 'community', label: 'Community', n: n.community },
+  { v: 'template', label: 'Template', n: n.template },
+];
 ---
 
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="generator" content={Astro.generator} />
-    <title>UCLI Tools Registry</title>
-    <meta name="theme-color" content="#ea580c" />
-</head>
-<body class="bg-gradient-to-br from-yellow-400 via-orange-400 to-red-400 text-white min-h-screen">
-    <!-- Hero Section -->
-    <div class="relative overflow-hidden">
-        <!-- Background gradient -->
-        <div class="absolute inset-0 bg-gradient-to-br from-yellow-400 via-orange-400 to-red-400"></div>
-        <!-- CSS Grid Pattern -->
-        <div class="absolute inset-0 opacity-30" style="background-image: linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px); background-size: 50px 50px; mask-image: linear-gradient(180deg, white, rgba(255,255,255,0));"></div>
+<Layout title="Registry">
+  <div class="u-wrap u-reg">
+    <h1>Registry</h1>
+    <p class="u-lede">Every tool ucli can install, with the commit it is pinned to, and the starter templates.</p>
 
-        <!-- Navigation -->
-        <nav class="relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center py-6">
-                    <div class="flex items-center space-x-3">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <div>
-                            <div class="text-xl font-bold text-white">
-                                UCLI Registry
-                            </div>
-                            <div class="text-xs text-white/80">Install tools by name</div>
-                        </div>
-                    </div>
-                    <div class="hidden md:flex items-center space-x-8">
-                        <a href="https://docs.ucli.tools" class="text-white hover:text-orange-200 transition">Documentation</a>
-                        <a href="https://github.com/ucli-tools/ucli-registry" class="text-white hover:text-orange-200 transition">GitHub</a>
-                        <a href="https://ucli.tools" class="px-4 py-2 bg-white hover:bg-gray-100 rounded-lg transition font-medium text-gray-900">Get Started</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Hero Content -->
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-            <div class="inline-block mb-6 px-4 py-2 bg-white/20 border border-white/50 rounded-full backdrop-blur-sm">
-                <span class="text-white font-semibold">Official Tool Registry</span>
-            </div>
-
-            <h1 class="text-5xl md:text-6xl font-black tracking-tight mb-6 text-white">
-                Install Tools by Name.
-                <br />
-                <span class="text-white">
-                    Like Docker. Simple.
-                </span>
-            </h1>
-
-            <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-                Browse official CLI tools and install them with a single command. Professional utilities for developers.
-            </p>
-
-            <!-- Install UCLI First Notice -->
-            <div class="max-w-2xl mx-auto mb-8">
-                <div class="bg-orange-600/20 backdrop-blur-sm border border-orange-400/40 rounded-xl p-6 text-center shadow-2xl">
-                    <div class="flex items-center justify-center gap-3 mb-3">
-                        <svg class="w-6 h-6 text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <h3 class="text-lg font-bold text-orange-200">Install UCLI First</h3>
-                    </div>
-                    <p class="text-orange-100 text-sm mb-4">
-                        Before installing individual tools, you need to install the UCLI tool manager.
-                    </p>
-                    <a
-                        href="https://install.ucli.tools"
-                        class="inline-block px-6 py-3 bg-orange-600 hover:bg-orange-500 rounded-lg font-semibold text-white text-sm transition transform hover:scale-105"
-                    >
-                        Install UCLI Tool Manager →
-                    </a>
-                </div>
-            </div>
-
-            <!-- Code Example -->
-            <div class="max-w-xl mx-auto mb-12">
-                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 text-left shadow-2xl">
-                    <pre class="text-white font-mono text-sm overflow-x-auto"><code><span class="text-white/70"># First, install UCLI tool manager</span>
-<span class="text-white/70">curl -fsSL https://install.ucli.tools/install.sh | bash</span>
-<span class="text-white/70"></span>
-<span class="text-white/70"># Then install any tool</span>
-<span class="text-orange-200">ucli</span> <span class="text-yellow-200">build</span> gits
-
-<span class="text-white/70"># That's it! 🎉</span></code></pre>
-                </div>
-            </div>
-
-            <!-- Stats -->
-            <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
-                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4">
-                    <div class="text-3xl font-bold text-orange-200" id="total-apps">-</div>
-                    <div class="text-sm text-white/80">Total Tools</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4">
-                    <div class="text-3xl font-bold text-green-200" id="official-apps">-</div>
-                    <div class="text-sm text-white/80">Official</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4">
-                    <div class="text-3xl font-bold text-purple-200" id="community-apps">-</div>
-                    <div class="text-sm text-white/80">Community</div>
-                </div>
-            </div>
-        </div>
+    <div class="u-search" id="search" hidden>
+      <label for="q">Search tools</label>
+      <div class="u-search__f">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="search" id="q" placeholder="Name or what it does" autocomplete="off" />
+      </div>
     </div>
 
-    <!-- Search & Filter -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl border border-white/20">
-            <div class="flex flex-col md:flex-row gap-4 mb-8">
-                <!-- Search -->
-                <div class="flex-1 relative">
-                    <input
-                        type="text"
-                        id="search"
-                        placeholder="Search tools..."
-                        class="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-3 pl-12 text-white placeholder-white/70 focus:outline-none focus:border-white/50 transition backdrop-blur-sm"
-                    />
-                    <svg class="w-5 h-5 text-white/70 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </div>
-
-                <!-- Filter by Status -->
-                <select
-                    id="status-filter"
-                    class="bg-white/20 border border-white/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white/50 transition backdrop-blur-sm"
-                >
-                    <option value="">All Status</option>
-                    <option value="production">Production</option>
-                    <option value="beta">Beta</option>
-                    <option value="development">Development</option>
-                </select>
-            </div>
-
-            <!-- Loading State -->
-            <div id="loading" class="text-center py-12">
-                <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
-                <p class="mt-4 text-white/80">Loading tools...</p>
-            </div>
-
-            <!-- Error State -->
-            <div id="error" class="hidden text-center py-12">
-                <div class="text-red-300 text-xl mb-2">❌ Failed to load tools</div>
-                <p class="text-white/80">Check console for details</p>
-            </div>
-
-            <!-- Apps Grid -->
-            <div id="apps-grid" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-                <!-- Apps will be injected here -->
-            </div>
-
-            <!-- No Results -->
-            <div id="no-results" class="hidden text-center py-12">
-                <div class="text-white/80 text-xl mb-2">🔍 No tools found</div>
-                <p class="text-white/70">Try adjusting your search or filters</p>
-            </div>
+    <div class="u-bar">
+      <div class="u-filters" id="filters" hidden>
+        <div class="u-fgroup" role="group" aria-labelledby="f-kind">
+          <span class="u-fgroup__l" id="f-kind">Kind</span>
+          <div class="u-fgroup__b">
+            {kinds.map((k) => (
+              <button type="button" data-v={k.v} aria-pressed={k.v === 'all' ? 'true' : 'false'}>{k.label} <span class="u-count-n">{k.n}</span></button>
+            ))}
+          </div>
         </div>
+      </div>
+      <p class="u-total" role="status">Showing <b id="shown">{n.all}</b> of {n.all} tools</p>
     </div>
 
-    <!-- Submit Tool CTA -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl border border-white/20 text-center">
-            <h2 class="text-3xl font-bold mb-4 text-white">Have a useful CLI tool?</h2>
-            <p class="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-                Submit your tool to the UCLI Registry and make it available to the community.
-            </p>
-            <a
-                href="https://docs.ucli.tools/community/contributing"
-                class="inline-block px-8 py-4 bg-orange-600 hover:bg-orange-700 rounded-lg font-semibold text-lg transition transform hover:scale-105 text-white"
-            >
-                Submit Your Tool →
-            </a>
-        </div>
-    </div>
+    <table class="u-table">
+      <caption class="u-visually-hidden">ucli registry</caption>
+      <thead>
+        <tr><th scope="col">Tool</th><th scope="col">Pinned commit</th><th scope="col">Kind</th><th scope="col">Description</th></tr>
+      </thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr data-kind={r.kind}>
+            <td class="u-tn">{r.href ? <a href={r.href} rel="noopener noreferrer">{r.name}</a> : r.name}</td>
+            <td class={r.kind === 'template' ? 'u-tc u-tc-t' : 'u-tc'}><code title={r.shaTitle}>{r.short}</code></td>
+            <td class="u-tk">{r.kindLabel}</td>
+            <td class="u-td">{r.description}</td>
+          </tr>
+        ))}
+        <tr class="u-empty" id="empty" hidden>
+          <td colspan="4"><b>No tools match.</b> Clear the search or pick another filter.{n.community === 0 && ' No community tools are listed yet.'}</td>
+        </tr>
+      </tbody>
+    </table>
 
-    <!-- Ecosystem Links -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl border border-white/20">
-            <div class="text-center mb-8">
-                <h3 class="text-2xl font-bold mb-2 text-white">UCLI Tools Ecosystem</h3>
-                <p class="text-white/80">Integrated tools and resources</p>
-            </div>
+    <p class="u-more">Each tool's pin is the exact commit ucli builds; templates are not installed by ucli. Pins change by pull request, after checks on the new commit. Most tools have no tests of their own yet; this list does not yet say which. Pins as of {registry.builtOn} (UTC).</p>
+  </div>
+</Layout>
 
-            <div class="grid md:grid-cols-4 gap-6">
-                <!-- Main Site -->
-                <a href="https://ucli.tools" class="group p-6 bg-gradient-to-br from-yellow-900/40 to-yellow-800/30 border border-yellow-500/40 hover:border-yellow-400/60 rounded-xl transition backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-2">
-                        <svg class="w-5 h-5 text-yellow-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <h4 class="font-bold text-white group-hover:text-yellow-200 transition">UCLI Tools</h4>
-                    </div>
-                    <p class="text-sm text-white/90">ucli.tools</p>
-                    <p class="text-xs text-white/80 mt-2">Main platform website</p>
-                </a>
-
-                <!-- Install -->
-                <a href="https://install.ucli.tools" class="group p-6 bg-gradient-to-br from-orange-900/40 to-orange-800/30 border border-orange-500/40 hover:border-orange-400/60 rounded-xl transition backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-2">
-                        <svg class="w-5 h-5 text-orange-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                        <h4 class="font-bold text-white group-hover:text-orange-200 transition">Install</h4>
-                    </div>
-                    <p class="text-sm text-white/90">install.ucli.tools</p>
-                    <p class="text-xs text-white/80 mt-2">One-line installer</p>
-                </a>
-
-                <!-- Registry (Current) -->
-                <div class="p-6 bg-gradient-to-br from-red-900/40 to-red-800/30 border border-red-500/40 rounded-xl relative backdrop-blur-sm">
-                    <div class="absolute -top-2 -right-2">
-                        <span class="px-2 py-1 bg-red-600 text-xs font-semibold rounded text-white">You are here</span>
-                    </div>
-                    <div class="flex items-center gap-3 mb-2">
-                        <svg class="w-5 h-5 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                        </svg>
-                        <h4 class="font-bold text-red-200">Registry</h4>
-                    </div>
-                    <p class="text-sm text-white/90">registry.ucli.tools</p>
-                    <p class="text-xs text-white/80 mt-2">Browse official tools</p>
-                </div>
-
-                <!-- Docs -->
-                <a href="https://docs.ucli.tools" class="group p-6 bg-gradient-to-br from-pink-900/40 to-pink-800/30 border border-pink-500/40 hover:border-pink-400/60 rounded-xl transition backdrop-blur-sm">
-                    <div class="flex items-center gap-3 mb-2">
-                        <svg class="w-5 h-5 text-pink-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                        <h4 class="font-bold text-white group-hover:text-pink-200 transition">Documentation</h4>
-                    </div>
-                    <p class="text-sm text-white/90">docs.ucli.tools</p>
-                    <p class="text-xs text-white/80 mt-2">Guides & references</p>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="border-t border-gray-800 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
-            <p>UCLI Tools Registry • Apache 2.0 License • Copyright 2025 UCLI Tools</p>
-            <p class="mt-2">
-                <a href="https://github.com/ucli-tools/ucli-registry" class="hover:text-gray-300 transition">GitHub</a> •
-                <a href="https://github.com/ucli-tools" class="hover:text-gray-300 transition ml-4">Organization</a>
-            </p>
-        </div>
-    </footer>
-
-    <script>
-        import { renderTool } from '../lib/render-tool.js';
-
-        // Fetch tools from UCLI Registry
-        const REGISTRY_URL = '/api/apps.json';
-        let allTools = [];
-
-        async function fetchTools() {
-            try {
-                const response = await fetch(REGISTRY_URL);
-                const tools = await response.json();
-                return tools;
-            } catch (error) {
-                console.error('Failed to fetch tools:', error);
-                throw error;
-            }
-        }
-
-        function filterTools() {
-            const searchQuery = document.getElementById('search').value.toLowerCase();
-            const statusFilter = document.getElementById('status-filter').value;
-
-            const filtered = allTools.filter(tool => {
-                const matchesSearch = !searchQuery ||
-                    tool.name.toLowerCase().includes(searchQuery) ||
-                    tool.description?.toLowerCase().includes(searchQuery) ||
-                    tool.tags?.some(tag => tag.toLowerCase().includes(searchQuery));
-
-                const matchesStatus = !statusFilter || tool.status === statusFilter;
-
-                return matchesSearch && matchesStatus;
-            });
-
-            const grid = document.getElementById('apps-grid');
-            const noResults = document.getElementById('no-results');
-
-            if (filtered.length === 0) {
-                grid.classList.add('hidden');
-                noResults.classList.remove('hidden');
-            } else {
-                grid.classList.remove('hidden');
-                noResults.classList.add('hidden');
-                grid.replaceChildren(...filtered.map(tool => renderTool(document, tool, window.copyInstallCommand)));
-            }
-        }
-
-        window.copyInstallCommand = function(toolName) {
-            const command = `ucli build ${toolName}`;
-            navigator.clipboard.writeText(command);
-
-            // Show toast notification
-            showToast(`Copied: ucli build ${toolName}`);
-        };
-
-        function showToast(message) {
-            // Create toast element
-            const toast = document.createElement('div');
-            toast.className = 'fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-up';
-            toast.textContent = message;
-
-            // Add to page
-            document.body.appendChild(toast);
-
-            // Remove after 3 seconds
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(1rem)';
-                toast.style.transition = 'all 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // Initialize
-        async function init() {
-            const loading = document.getElementById('loading');
-            const error = document.getElementById('error');
-            const grid = document.getElementById('apps-grid');
-
-            try {
-                allTools = await fetchTools();
-
-                // Update stats
-                const official = allTools.filter(a => a.type === 'official').length;
-                const community = allTools.filter(a => a.type === 'community').length;
-
-                document.getElementById('total-apps').textContent = allTools.length;
-                document.getElementById('official-apps').textContent = official;
-                document.getElementById('community-apps').textContent = community;
-
-                // Render apps
-                loading.classList.add('hidden');
-                filterTools();
-
-                // Setup event listeners
-                document.getElementById('search').addEventListener('input', filterTools);
-                document.getElementById('status-filter').addEventListener('change', filterTools);
-
-            } catch (err) {
-                loading.classList.add('hidden');
-                error.classList.remove('hidden');
-                console.error('Error loading tools:', err);
-            }
-        }
-
-        // Run on load
-        init();
-    </script>
-</html>
+<script is:inline>
+(function () {
+  var q = document.getElementById('q');
+  var rows = [].slice.call(document.querySelectorAll('.u-table tbody tr[data-kind]'));
+  var empty = document.getElementById('empty');
+  var shown = document.getElementById('shown');
+  var buttons = [].slice.call(document.querySelectorAll('.u-fgroup__b button'));
+  var kind = 'all';
+  function run() {
+    var term = (q.value || '').trim().toLowerCase(), count = 0;
+    rows.forEach(function (r) {
+      var ok = (kind === 'all' || r.getAttribute('data-kind') === kind) && (!term || r.querySelector('.u-tn').textContent.toLowerCase().indexOf(term) >= 0 || r.querySelector('.u-td').textContent.toLowerCase().indexOf(term) >= 0);
+      r.hidden = !ok;
+      if (ok) count++;
+    });
+    empty.hidden = count > 0;
+    shown.textContent = count;
+  }
+  q.addEventListener('input', run);
+  document.getElementById('search').hidden = false;
+  document.getElementById('filters').hidden = false;
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      kind = b.getAttribute('data-v');
+      buttons.forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+      run();
+    });
+  });
+  run();
+})();
+</script>

@@ -1,0 +1,63 @@
+---
+import '../styles/tw.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Every tool ucli can install, with the commit it is pinned to, and the starter templates." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>try{var t=localStorage.getItem('ucli-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+    <link rel="icon" type="image/svg+xml" href="/ucli-kit/mark.svg" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1012" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="UCLI Tools" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/schibsted-grotesk-variable.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/jetbrains-mono-400.woff2" />
+    <link rel="stylesheet" href="/ucli-kit/tokens.css" />
+    <link rel="stylesheet" href="/ucli-kit/base.css" />
+    <link rel="stylesheet" href="/ucli-kit/prose.css" />
+    <script src="/ucli-kit/copy.js" defer></script>
+    <script src="/ucli-kit/theme.js" defer></script>
+  </head>
+  <body>
+    <a class="u-skip" href="#main">Skip to content</a>
+    <SiteHeader site="registry" />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
+
+<style is:global>
+  /* Page-level pieces this site adds on top of the kit. Kit tokens only. */
+  .u-reg { padding-top: 56px; padding-bottom: 48px; }
+  .u-reg h1 { font-size: var(--u-fs-h1-page); font-weight: 700; letter-spacing: -.025em; line-height: 1.1; max-width: 22ch; }
+  .u-reg .u-lede { max-width: 36em; }
+  .u-reg .u-more { max-width: 68ch; margin-top: 20px; }
+  .u-reg .u-table { margin: 0; }
+  @media (max-width: 720px) { .u-reg { padding-top: 36px; } }
+</style>

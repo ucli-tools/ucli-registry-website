@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>path{fill:none;stroke:#101214;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}@media (prefers-color-scheme:dark){path{stroke:#eceef0}}</style>
+  <path d="M7 9l9 7-9 7"/>
+  <path d="M19 24h7"/>
+</svg>
